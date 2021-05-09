@@ -16,6 +16,12 @@ resource "azurerm_app_service" "test" {
   app_service_plan_id = azurerm_app_service_plan.test.id
 
   app_settings = {
-    "WEBSITE_RUN_FROM_PACKAGE" = 1
+    "WEBSITE_RUN_FROM_PACKAGE" = 0  
+  }
+
+  lifecycle {
+    ignore_changes = [
+      app_settings["WEBSITE_RUN_FROM_PACKAGE"],
+    ]
   }
 }
