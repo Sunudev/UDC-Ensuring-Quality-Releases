@@ -123,7 +123,7 @@ stages:
               displayName: Deploy Azure WebApp
               inputs:
                 azureSubscription: 'azurerm-sc'
-                appName: 'lingchenzhu-webapi-AppService'
+                appName: 'UDC-Ensuring-Quality-Releases'
                 appType: webApp
                 package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
                 deploymentMethod: zipDeploy
