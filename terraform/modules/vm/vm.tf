@@ -32,4 +32,5 @@ resource "azurerm_linux_virtual_machine" "test" {
     sku       = "18.04-LTS"
     version   = "latest"
   }
+  tags = azurerm_resource_group.resourcegroup.tags
 }
