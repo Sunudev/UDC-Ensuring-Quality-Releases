@@ -108,9 +108,3 @@ stages:
           inputs:
             targetPath: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
             artifactName: 'drop-selenium'
-        - task: AzureWebApp@1
-          inputs:
-            azureSubscription: 'azurerm-sc'
-            appType: 'webAppLinux'
-            appName: 'UDC-Ensuring-Quality-Releases'
-            package: '$(System.DefaultWorkingDirectory)/**/*.zip'
