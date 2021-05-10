@@ -131,7 +131,7 @@ stages:
     - deployment: deployment_vm
       displayName: Deploy Virtual Machine
       environment:
-        name: UDC-Ensuring-Quality-Releases
+        name: TEST
         resourceType: VirtualMachine
       strategy:
         runOnce:
