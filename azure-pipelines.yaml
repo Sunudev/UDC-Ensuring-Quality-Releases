@@ -127,29 +127,25 @@ stages:
                 appType: webApp
                 package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
                 deploymentMethod: zipDeploy
-
-    - deployment: deployment_vm
-      displayName: Deploy Virtual Machine
+    - deployment: VMDeploy
+      displayName: VM Deployment
       environment:
-          name: 'TEST'
-          resourceType: VirtualMachine
-          tags: 'TEST'
+       name:  'TEST'
+       resourceType: VirtualMachine
+       tags: TEST
       strategy:
-          runOnce:
-            deploy:
-              steps:
-              - bash: |
-                  pwd
-                  hostname
-                  uname -a
-                  cat /etc/*-release
-                  sudo apt-get install software-properties-common -y
-                  sudo apt-add-repository universe -y
-                  sudo apt-get update -y
-                  sudo apt-get install python3-pip -y
-                  sudo apt-get install unzip -y
-                  sudo apt-get install -y chromium-browser
-                  sudo apt-get install -y chromium-chromedriver
-                  python3 -m pip install --upgrade pip
-                  pip3 install selenium
-                  export PATH=$PATH:some/path
+       runOnce:
+         deploy:
+           steps:
+            - task: Bash@3
+              inputs:
+                targetType: 'inline'
+                script: |
+                 #! /bin/bash
+                
+                 sudo apt-get upgrade -y
+                 sudo apt-get install python3-pip -y
+                 sudo apt-get install unzip -y
+                 sudo apt-get install -y chromium-browser
+                 pip3 install selenium
+                 export PATH=$PATH:some/path
