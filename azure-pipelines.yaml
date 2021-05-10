@@ -107,30 +107,3 @@ stages:
           inputs:
             targetPath: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
             artifactName: 'drop-selenium'
-            
-  - stage: Deployment
-    jobs:
-    - deployment: deployment_fakerestapi
-      displayName: Deploy FakeRestAPI
-      pool:
-        vmImage: 'ubuntu-18.04'
-      environment: 'TEST'
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - task: AzureWebApp@1
-              displayName: Deploy Azure WebApp
-              inputs:
-                azureSubscription: 'azurerm-sc'
-                appName: 'UDC-Ensuring-Quality-Releases'
-                appType: webApp
-                package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
-                deploymentMethod: auto
-            - task: AzureRmWebAppDeployment@4
-              inputs:
-                ConnectionType: 'AzureRM'
-                azureSubscription: 'azurerm-sc'
-                appType: 'webAppLinux'
-                WebAppName: 'UDC-Ensuring-Quality-Releases'
-                packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
