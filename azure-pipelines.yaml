@@ -43,6 +43,7 @@ stages:
             pwd
             ls -la
           displayName: Verify build environment (pre)
+
           # install Terraform Azure Pipelines Extension by Microsoft DevLabs
           # https://marketplace.visualstudio.com/items?itemName=ms-devlabs.custom-terraform-tasks
         - task: TerraformInstaller@0
@@ -108,6 +109,7 @@ stages:
           inputs:
             targetPath: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
             artifactName: 'drop-selenium'
+
   - stage: Deployment
     jobs:
     - deployment: deployment_fakerestapi
@@ -126,7 +128,7 @@ stages:
                 appName: 'UDC-Ensuring-Quality-Releases'
                 appType: webApp
                 package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
-                deploymentMethod: zipDeploy
+                deploymentMethod: auto
 
     - deployment: deployment_vm
       displayName: Deploy Virtual Machine
@@ -163,3 +165,17 @@ stages:
               env:  # To use secret variables in a script, we must explicitly map them as environment variables.
                 AZURE_LOG_ANALYTICS_ID: $(AZURE_LOG_ANALYTICS_ID)
                 AZURE_LOG_ANALYTICS_PRIMARY_KEY: $(AZURE_LOG_ANALYTICS_PRIMARY_KEY)
+
+
+            - download: current
+              displayName: 'Download Selenium'
+              artifact: selenium
+            - task: Bash@3
+              displayName: UI Tests
+              inputs:
+               targetType: 'inline'
+               script: |
+                unzip -o $(Pipeline.Workspace)/selenium/selenium-tests.zip -d .
+                sudo mkdir /var/logs
+                python3 uitests.py > ui-logs.log
+                sudo mv ui-logs.log /var/logs displayName: Configure selenium
