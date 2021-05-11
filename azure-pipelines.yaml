@@ -149,6 +149,9 @@ stages:
                   pwd
                   hostname
                   uname -a
+                  cat /etc/*-release
+                  sudo apt-get install software-properties-common -y
+                  sudo apt-add-repository universe -y
                   sudo apt-get upgrade -y
                   sudo apt-get install python3-pip -y
                   sudo apt-get install unzip -y
@@ -184,4 +187,3 @@ stages:
                   sudo mkdir /var/logs
                   python3 uitests.py > ui-logs.log
                   sudo mv ui-logs.log /var/logs
-
