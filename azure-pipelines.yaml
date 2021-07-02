@@ -27,6 +27,7 @@ stages:
         - bash: |
             cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform/environments/test
           displayName: Copy terraform.tfvars
+          
         - bash: |
             echo Pipeline workspace dir is $(Pipeline.Workspace)
             echo Terraform variable definition file is $(tfvardef.secureFilePath)
