@@ -116,7 +116,7 @@ stages:
       displayName: Deploy FakeRestAPI
       pool:
         vmImage: 'ubuntu-18.04'
-      environment: 'newnew'
+      environment: 'sunu'
       strategy:
         runOnce:
           deploy:
@@ -133,7 +133,7 @@ stages:
     - deployment: deployment_vm
       displayName: Deploy Virtual Machine
       environment:
-        name: 'newnew'
+        name: 'sunu'
         resourceType: VirtualMachine
       strategy:
         runOnce:
@@ -172,7 +172,7 @@ stages:
     - deployment: test_vm
       displayName: Test on Virtual Machine
       environment:
-        name: 'newnew'
+        name: 'sunu'
         resourceType: VirtualMachine
       strategy:
         runOnce:
