@@ -109,7 +109,6 @@ stages:
           inputs:
             targetPath: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
             artifactName: 'drop-selenium'
-<<<<<<< HEAD
 
   - stage: Deployment
     jobs:
@@ -130,27 +129,3 @@ stages:
                appType: webApp
                package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
                deploymentMethod: zipDeploy
-=======
-      - deployment: VMDeploy
-        displayName: NAME
-        environment: 
-          name:  TEST
-          resourceType: VirtualMachine
-          tags: TAG NAME
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-              - task: Bash@3
-                inputs:
-                  targetType: 'inline'
-                  script: |
-                    #! /bin/bash
-                
-                    sudo apt-get upgrade -y
-                    sudo apt-get install python3-pip -y
-                    sudo apt-get install unzip -y
-                    sudo apt-get install -y chromium-browser
-                    pip3 install selenium
-                    export PATH=$PATH:some/path
->>>>>>> 3a1a6d3c651f2a8081b5207a28af7d09fa84d982
