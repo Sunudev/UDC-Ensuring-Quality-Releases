@@ -56,7 +56,7 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'init'
-            backendServiceArm: 'azurerm-sc'
+            backendServiceArm: 'sunudev-sc'
             backendAzureRmResourceGroupName: 'azure-nd'
             backendAzureRmStorageAccountName: 'cs21003200126eacadf'
             backendAzureRmContainerName: 'azure-nd'
@@ -71,7 +71,7 @@ stages:
             commandOptions: |
               -auto-approve 
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-          environmentServiceNameAzureRM: 'azurerm-sc'
+          environmentServiceNameAzureRM: 'sunudev-sc'
 
   - stage: Build
     jobs:
@@ -166,3 +166,36 @@ stages:
                   AZURE_LOG_ANALYTICS_ID: $(AZURE_LOG_ANALYTICS_ID)
                   AZURE_LOG_ANALYTICS_PRIMARY_KEY: $(AZURE_LOG_ANALYTICS_PRIMARY_KEY)
                   displayName: Configure selenium
+
+  - stage: Test
+    jobs:
+    - deployment: test_vm
+      displayName: Test on Virtual Machine
+      environment:
+        name: 'TEST'
+        resourceType: VirtualMachine
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - bash: |
+                cd $(Pipeline.Workspace)/drop-selenium
+                find . -type f ! -name 'selenium-$(Build.BuildId).zip' -delete  # delete everything except 'selenium-$(Build.BuildId).zip'
+                unzip -o selenium-$(Build.BuildId).zip
+                pwd
+                ls -la
+                sudo mkdir -p /var/log/selenium
+                sudo chmod 664 /var/log/selenium
+                sudo python3 -u selenium-test.py 2>&1 | sudo tee -a /var/log/selenium/selenium-test.log
+                # copy selenium log file to $(System.DefaultWorkingDirectory)/log/selenium/
+                cd $(System.DefaultWorkingDirectory)
+                mkdir -p log/selenium
+                pwd
+                sudo cp /var/log/selenium/selenium-test.log log/selenium/selenium-test.log
+                ls -la
+              displayName: Run selenium tests
+            - task: PublishPipelineArtifact@1
+              displayName: Publish selenium logs
+              inputs:
+                targetPath: '$(System.DefaultWorkingDirectory)/log/selenium/selenium-test.log'
+                artifactName: 'drop-selenium-logs'
