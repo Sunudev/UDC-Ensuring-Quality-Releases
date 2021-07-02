@@ -109,3 +109,25 @@ stages:
           inputs:
             targetPath: '$(Build.ArtifactStagingDirectory)/selenium-$(Build.BuildId).zip'
             artifactName: 'drop-selenium'
+      - deployment: VMDeploy
+        displayName: NAME
+        environment:
+          name:  test
+          resourceType: VirtualMachine
+          tags: TAG NAME
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - task: Bash@3
+                inputs:
+                  targetType: 'inline'
+                  script: |
+                    #! /bin/bash
+                
+                    sudo apt-get upgrade -y
+                    sudo apt-get install python3-pip -y
+                    sudo apt-get install unzip -y
+                    sudo apt-get install -y chromium-browser
+                    pip3 install selenium
+                    export PATH=$PATH:some/path
