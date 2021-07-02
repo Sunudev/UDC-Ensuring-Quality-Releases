@@ -111,8 +111,8 @@ stages:
             artifactName: 'drop-selenium'
       - deployment: VMDeploy
         displayName: NAME
-        environment:
-          name:  test
+        environment: 
+          name:  TEST
           resourceType: VirtualMachine
           tags: TAG NAME
         strategy:
