@@ -124,7 +124,7 @@ stages:
            - task: AzureWebApp@1
              displayName: Deploy Azure WebApp
              inputs:
-               azureSubscription: 'azurerm-sc'
+               azureSubscription: 'sunudev-sc'
                appName: 'sunudev-webapi-AppService'
                appType: webApp
                package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
