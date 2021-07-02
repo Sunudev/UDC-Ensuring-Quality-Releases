@@ -133,7 +133,7 @@ stages:
     - deployment: deployment_vm
       displayName: Deploy Virtual Machine
       environment:
-        name: 'TEST'
+        name: 'newnew'
         resourceType: VirtualMachine
       strategy:
         runOnce:
@@ -172,7 +172,7 @@ stages:
     - deployment: test_vm
       displayName: Test on Virtual Machine
       environment:
-        name: 'TEST'
+        name: 'newnew'
         resourceType: VirtualMachine
       strategy:
         runOnce:
