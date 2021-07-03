@@ -6,7 +6,7 @@ tenant_id = "dcb9dce8-f52d-4cf3-a99e-ee1415cbfc81"
 
 # Resource Group/Location
 location = "East US 2"
-resource_group = "Lesson1"
+resource_group = "udacity-QA"
 application_type = "AppService"
 
 # Tags
