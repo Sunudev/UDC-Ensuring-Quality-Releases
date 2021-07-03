@@ -54,12 +54,12 @@ module "publicip" {
 }
 module "vm" {
   source          = "../../modules/vm"
-  name            = "vm-test-automation"
-  location        = var.location
-  subnet_id       = module.network.subnet_id_test
-  resource_group  = module.resource_group.resource_group_name
-  public_ip       = module.publicip.public_ip_address_id
-  admin_username  = var.admin_username
-  packer_image    = var.packer_image
-  public_key_path = var.public_key_path
+  location             = var.location
+  resource_group       = module.resource_group.resource_group_name
+  application_type     = var.application_type
+  resource_type        = "VM"
+
+  public_ip_address_id = module.public_ip.public_ip_address_id
+  public_subnet_id     = module.network.subnet_id_test
+  admin_username       = "adminuser"
 } 
