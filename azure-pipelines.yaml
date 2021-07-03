@@ -60,7 +60,7 @@ stages:
             backendServiceArm: 'Udacity-QA'
             backendAzureRmResourceGroupName: 'Udacity-QA'
             backendAzureRmStorageAccountName: 'cs21003200126eacadf'
-            backendAzureRmContainerName: 'Udacity-QA'
+            backendAzureRmContainerName: 'tstate'
             backendAzureRmKey: 'terraform.tfstate'
             workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
