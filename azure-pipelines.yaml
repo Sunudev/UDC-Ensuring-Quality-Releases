@@ -57,10 +57,10 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'init'
-            backendServiceArm: 'sunudev-sc'
-            backendAzureRmResourceGroupName: 'azure-nd'
+            backendServiceArm: 'Udacity-QA'
+            backendAzureRmResourceGroupName: 'Udacity-QA'
             backendAzureRmStorageAccountName: 'cs21003200126eacadf'
-            backendAzureRmContainerName: 'azure-nd'
+            backendAzureRmContainerName: 'Udacity-QA'
             backendAzureRmKey: 'terraform.tfstate'
             workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
