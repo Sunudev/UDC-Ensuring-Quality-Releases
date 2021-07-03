@@ -7,7 +7,7 @@ provider "azurerm" {
 }
 terraform {
   backend "azurerm" {
-    resource_group_name  = "${var.resource_group}"
+    resource_group_name  = "Udacity-QA"
     storage_account_name = "tstate14857"
     container_name       = "tstate"
     key                  = "terraform.tfstate"
