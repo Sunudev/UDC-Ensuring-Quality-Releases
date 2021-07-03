@@ -72,7 +72,7 @@ stages:
             commandOptions: |
               -auto-approve 
           workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-          environmentServiceNameAzureRM: 'sunudev-sc'
+          environmentServiceNameAzureRM: 'Udacity-QA'
 
   - stage: Build
     jobs:
@@ -125,7 +125,7 @@ stages:
            - task: AzureWebApp@1
              displayName: Deploy Azure WebApp
              inputs:
-               azureSubscription: 'sunudev-sc'
+               azureSubscription: 'Udacity-QA'
                appName: 'sunudev-webapi'
                appType: webApp
                package: $(Pipeline.Workspace)/drop-fakerestapi/fakerestapi-$(Build.BuildId).zip
